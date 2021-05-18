@@ -217,7 +217,7 @@ for i in 1..=6 {
 In some cases, you may wish to cache a `Distribution` instance for reuse. Many
 distributions perform some initial calculations when constructed, and it can
 help performance to reuse existing distributions rather than recreate them
-every time a value is generated. `standard-dist` provides to ways to cache
+every time a value is generated. `standard-dist` provides two ways to cache
 distributions: `static` and `once`. A `static` distribution is stored as a
 global static variable; this is the preferable option, but it requires the
 initializer to be usable in a `const` context. A `once` distribution is stored
@@ -690,7 +690,7 @@ pub fn standard_dist(item: TokenStream) -> TokenStream {
     };
 
     let distribution_impl = quote! {
-        impl #impl_generics ::rand::distributions::Distribution<#type_ident #ty_generics > for ::rand::distributions::Standard
+        impl #impl_generics ::rand::distributions::Distribution<#type_ident #ty_generics> for ::rand::distributions::Standard
             #where_clause
         {
             fn sample<R: ::rand::Rng + ?::std::marker::Sized>(&self, #rng: &mut R) -> #type_ident #ty_generics {
